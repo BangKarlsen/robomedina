@@ -1,0 +1,5 @@
+notes.txt
+run.sh
+*.sublime-workspace
+*.sublime-project
+node_modules

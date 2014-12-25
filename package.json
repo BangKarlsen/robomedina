@@ -1,0 +1,14 @@
+{
+  "name": "medinabot",
+  "version": "0.0.1",
+  "description": "I am twitterbotter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bangkarlsen",
+  "license": "ISC",
+  "dependencies": {
+    "twit": "^1.1.18"
+  }
+}
