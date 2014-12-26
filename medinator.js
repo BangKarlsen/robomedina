@@ -42,29 +42,28 @@ function isTerminal(string) {
     return string.indexOf('.') === string.length - 1;
 }
 
-function getRandomWord(words) {
+function getNextRandomWord(words) {
     var index = Math.floor(Math.random() * words.length);
     return words[index];
 }
 
-Medinator.prototype.getSentence = function(minLength) {
-    var maxLength = 20;
+Medinator.prototype.getSentence = function() {
     var words = [];
-    var word = getRandomWord(this.startWords);
+    var word = getNextRandomWord(this.startWords);
     words.push(word);
-
-    for (var i = 0; i < maxLength; i++) {
-        word = getRandomWord(this.wordGraph[word]);
+    while(true) {
+        word = getNextRandomWord(this.wordGraph[word]);
         words.push(word);
-
-        if (isTerminal(word) && i > minLength) {
+        if (isTerminal(word)) {
             break;
         }
     }
     var sentence = words.join(' ');
-    var end = sentence.lastIndexOf('.');
-    sentence = sentence.substr(0, end + 1);
 
+    // If the original lyrics contain the sentence, recurse.
+    if (this.lyrics.indexOf(sentence) > -1) {
+        sentence = this.getSentence();
+    }
     return sentence;
 };
 

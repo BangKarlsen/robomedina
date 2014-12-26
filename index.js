@@ -13,12 +13,21 @@ var T = new Twit({
     access_token_secret: process.env.medinabot_access_token_secret
 });
 
-// T.post('statuses/update', { status: 'Jeg har det godt. Kun tonerne fylder mine årer. Og jeg har det godt.' }, function(err, data, response) {
-//   console.log(data)
-// })
-
-
 var Medinator = require('./medinator.js');
 var medinator = new Medinator('./lyrics/kun_for_mig.txt');
-var textLine = medinator.getSentence(10);
-console.log(textLine);
+
+var sentence = '';
+while(true) {
+    var nextSentence = medinator.getSentence() + ' ';
+    if (sentence.length + nextSentence.length < 140) {
+        sentence += nextSentence;
+    } else {
+        break;
+    }
+}
+
+console.log(sentence +'[' + sentence.length + ']');
+
+// T.post('statuses/update', { status: sentence }, function(err, data, response) {
+//   console.log(data)
+// })
